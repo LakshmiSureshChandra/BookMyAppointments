@@ -28,8 +28,8 @@ const Banner: FC = () => {
   }, [])
 
   return (
-    <div className="w-full flex flex-col items-center py-6">
-      <div className="relative w-full max-w-7xl h-[200px] rounded-xl overflow-hidden">
+    <div className="w-full flex flex-col items-center py-3 px-6">
+      <div className="relative w-full h-[300px] rounded-xl overflow-hidden">
         {bannerImages.map((image, index) => (
           <div
             key={index}
