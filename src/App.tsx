@@ -1,25 +1,16 @@
-import { BrowserRouter } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
-import Banner from './components/Banner/Banner'
-import Categories from './components/Categories/Categories'
-import HospitalList from './components/HospitalList/HospitalList'
-import Footer from './components/Footer/Footer'
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home/Home'
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <>
-          <Navbar />
-          <Banner />
-          <Categories />
-          <HospitalList />
-          <Footer />
-        </>
-      </div>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    )
 }
 
 export default App
