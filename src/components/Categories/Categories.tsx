@@ -94,64 +94,34 @@ const Categories: FC = () => {
 
 
     return (
-        <div className="w-full py-3 px-6">
+        <div className="w-full py-1.5 px-2 lg:py-3 lg:px-6">
             <div
                 ref={scrollRef}
-                className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
-                onMouseEnter={() => {
-                    const preventScroll = (e: Event) => {
-                        if (e instanceof WheelEvent || e instanceof TouchEvent) {
-                            e.preventDefault();
-                        }
-                    };
-                
-                    const preventScrollKeys = (e: KeyboardEvent) => {
-                        const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
-                        if (keys.includes(e.keyCode)) {
-                            e.preventDefault();
-                        }
-                    };
-                
-                    window.addEventListener('wheel', preventScroll, { passive: false });
-                    window.addEventListener('touchmove', preventScroll, { passive: false });
-                    window.addEventListener('keydown', preventScrollKeys);
-                
-                    window._preventScroll = { preventScroll, preventScrollKeys };
-                }}
-                onMouseLeave={() => {
-                    const preventScrollStore = window._preventScroll;
-                    if (preventScrollStore) {
-                        window.removeEventListener('wheel', preventScrollStore.preventScroll);
-                        window.removeEventListener('touchmove', preventScrollStore.preventScroll);
-                        window.removeEventListener('keydown', preventScrollStore.preventScrollKeys);
-                        delete window._preventScroll;
-                    }
-                }}
+                className="flex overflow-x-auto gap-1.5 lg:gap-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth pb-1"
             >
-
                 {categories.map((category) => (
                     <div
                         key={category.id}
                         onClick={() => setSelectedCategory(category.id)}
-                        className={`flex items-center gap-2 p-2 rounded-xl transition-all cursor-pointer shrink-0 w-[200px]
+                        className={`flex items-center gap-1.5 lg:gap-2 p-1.5 lg:p-2 rounded-md lg:rounded-xl transition-all cursor-pointer shrink-0 w-[140px] lg:w-[200px]
                             ${selectedCategory === category.id
                                 ? 'bg-[#0066FF] text-white'
                                 : 'bg-[#F8F8F8] hover:bg-gray-100'
                             }`}
                     >
-                        <div className={`w-8 h-8 flex items-center justify-center rounded-full p-1.5
+                        <div className={`w-5 h-5 lg:w-8 lg:h-8 flex items-center justify-center rounded-full p-1 lg:p-1.5
                             ${selectedCategory === category.id ? 'bg-white/20' : 'bg-white'}`}>
                             <img
                                 src={category.icon}
                                 alt={category.name}
-                                className={`w-4 h-4 object-contain ${selectedCategory === category.id ? 'brightness-0 invert' : ''}`}
+                                className={`w-2.5 h-2.5 lg:w-4 lg:h-4 object-contain ${selectedCategory === category.id ? 'brightness-0 invert' : ''}`}
                             />
                         </div>
-                        <div>
-                            <h3 className={`text-xs font-medium ${selectedCategory === category.id ? 'text-white' : 'text-gray-800'}`}>
+                        <div className="flex-1 min-w-0">
+                            <h3 className={`text-[10px] lg:text-xs font-medium truncate ${selectedCategory === category.id ? 'text-white' : 'text-gray-800'}`}>
                                 {category.name}
                             </h3>
-                            <p className={`text-[10px] ${selectedCategory === category.id ? 'text-white/80' : 'text-gray-500'}`}>
+                            <p className={`text-[8px] lg:text-[10px] truncate ${selectedCategory === category.id ? 'text-white/80' : 'text-gray-500'}`}>
                                 {category.description}
                             </p>
                         </div>

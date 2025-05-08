@@ -7,7 +7,7 @@ const Navbar: FC = () => {
     const [activeTab, setActiveTab] = useState<'hospital' | 'lab'>('hospital')
 
     return (
-        <nav className="px-6 py-3 w-full">
+        <nav className="hidden lg:block px-6 py-3 w-full"> {/* Changed md:block to lg:block */}
             <div className="flex items-center">
                 {/* Logo and tagline */}
                 <div className="flex flex-col mr-6">
@@ -23,7 +23,7 @@ const Navbar: FC = () => {
                 {/* Search box */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 w-[280px] mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 100 4z" clipRule="evenodd" />
                     </svg>
                     <input
                         type="text"
