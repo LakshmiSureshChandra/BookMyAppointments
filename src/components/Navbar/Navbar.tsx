@@ -1,10 +1,11 @@
 import type { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: FC = () => {
     const [activeTab, setActiveTab] = useState<'hospital' | 'lab'>('hospital')
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const location = useLocation()
     const isHomePage = location.pathname === '/'
 
@@ -118,11 +119,60 @@ const Navbar: FC = () => {
                 </div>
 
                 {/* Profile section - pushed to the right */}
-                <div className="flex items-center gap-2 bg-[#F3F3F3] rounded-full">
-                    <div className="w-8 h-8 rounded-full bg-gray-200 m-1 overflow-hidden">
-                        <img src="/profile-placeholder.png" alt="Profile" className="w-full h-full object-cover" />
-                    </div>
-                    <span className="text-black font-semibold mx-2">Rachana Ranade</span>
+                <div className="relative">
+                    <button 
+                        onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                        className="flex items-center gap-2 bg-[#F3F3F3] rounded-full hover:bg-gray-100 transition-colors"
+                    >
+                        <div className="w-8 h-8 rounded-full bg-gray-200 m-1 overflow-hidden">
+                            <img src="/profile-placeholder.png" alt="Profile" className="w-full h-full object-cover" />
+                        </div>
+                        <span className="text-black font-semibold mx-2">Rachana Ranade</span>
+                    </button>
+
+                    <AnimatePresence>
+                        {isProfileMenuOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                transition={{ duration: 0.2 }}
+                                className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50"
+                            >
+                                <Link 
+                                    to="/profile"
+                                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50"
+                                >
+                                    Profile Settings
+                                </Link>
+                                <Link 
+                                    to="/bookings"
+                                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50"
+                                >
+                                    Recent Bookings
+                                </Link>
+                                <Link 
+                                    to="/health-records"
+                                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50"
+                                >
+                                    My Health Records
+                                </Link>
+                                <Link 
+                                    to="/help"
+                                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50"
+                                >
+                                    Help & Support
+                                </Link>
+                                <div className="h-px bg-gray-200 my-1" />
+                                <button 
+                                    className="w-full flex items-center px-4 py-2 text-red-600 hover:bg-gray-50"
+                                    onClick={() => {/* Add logout logic */}}
+                                >
+                                    Sign Out
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </nav>

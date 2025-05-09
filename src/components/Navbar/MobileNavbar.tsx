@@ -186,6 +186,37 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ activeTab, setActiveTab }) => {
                         >
                             <Link to="/health-records" className="text-gray-700 hover:text-blue-600 transition-colors">Health Records</Link>
                             <Link to="/help" className="text-gray-700 hover:text-blue-600 transition-colors">Help & Support</Link>
+                            <Link 
+                                to="/profile"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Profile Settings
+                            </Link>
+                            <Link 
+                                to="/bookings"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Recent Bookings
+                            </Link>
+                            <Link 
+                                to="/health-records" 
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                My Health Records
+                            </Link>
+                            <Link 
+                                to="/help" 
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Help & Support
+                            </Link>
+                            <div className="h-px bg-gray-200 my-2" />
+                            <button 
+                                className="text-left text-red-600 hover:text-red-700 transition-colors"
+                                onClick={() => {/* Add logout logic */}}
+                            >
+                                Sign Out
+                            </button>
                         </motion.div>
                     </motion.div>
                 </motion.div>
