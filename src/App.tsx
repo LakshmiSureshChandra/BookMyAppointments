@@ -5,6 +5,7 @@ import DoctorDetails from './pages/DoctorDetails/DoctorDetails'
 import Booking from './pages/Booking/Booking'
 import ProfileSettings from './pages/ProfileSettings/ProfileSettings'
 import RecentBookings from './pages/RecentBookings/RecentBookings'
+import HealthRecords from './pages/HealthRecords/HealthRecords'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/booking" element={<Booking />} />
                     <Route path="/profile" element={<ProfileSettings />} />
                     <Route path="/bookings" element={<RecentBookings />} />
+                    <Route path="/health-records" element={<HealthRecords />} />
                 </Routes>
             </div>
         </BrowserRouter>
