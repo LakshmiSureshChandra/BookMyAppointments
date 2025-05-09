@@ -112,14 +112,8 @@ const Navbar: FC = () => {
                     </div>
                 )}
 
-                {/* Navigation links */}
-                <div className="flex items-center space-x-6 ml-auto mr-6">
-                    <Link to="/health-records" className="text-[#AEAEAE]">Health Records</Link>
-                    <Link to="/help" className="text-[#AEAEAE]">Help & Support</Link>
-                </div>
-
                 {/* Profile section - pushed to the right */}
-                <div className="relative">
+                <div className="relative ml-auto">
                     <button 
                         onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                         className="flex items-center gap-2 bg-[#F3F3F3] rounded-full hover:bg-gray-100 transition-colors"

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import type { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const DoctorInfo: FC = () => {
     const [activeTab, setActiveTab] = useState<'about' | 'reviews' | 'others'>('about');
+    const navigate = useNavigate();
 
     return (
         <div className="w-[97%] mx-auto mt-6">
@@ -134,7 +136,10 @@ const DoctorInfo: FC = () => {
                             <p className="text-gray-800">10:00 AM - 1:00 PM</p>
                         </div>
 
-                        <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                        <button 
+                            onClick={() => navigate('/booking')}
+                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                        >
                             Book Appointment
                         </button>
                     </div>

@@ -184,8 +184,6 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ activeTab, setActiveTab }) => {
                             transition={{ delay: 0.4 }}
                             className="flex flex-col space-y-4"
                         >
-                            <Link to="/health-records" className="text-gray-700 hover:text-blue-600 transition-colors">Health Records</Link>
-                            <Link to="/help" className="text-gray-700 hover:text-blue-600 transition-colors">Help & Support</Link>
                             <Link 
                                 to="/profile"
                                 className="text-gray-700 hover:text-blue-600 transition-colors"
