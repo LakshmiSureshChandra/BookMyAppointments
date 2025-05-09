@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 interface MobileNavbarProps {
@@ -10,6 +10,8 @@ interface MobileNavbarProps {
 
 const MobileNavbar: FC<MobileNavbarProps> = ({ activeTab, setActiveTab }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const location = useLocation()
+    const isHomePage = location.pathname === '/'
 
     // Add click outside handler
     useEffect(() => {
@@ -63,79 +65,81 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ activeTab, setActiveTab }) => {
                 </div>
             </nav>
 
-            {/* Floating Toggle Buttons */}
-            <div className="fixed bottom-6 right-6 lg:hidden z-30">
-                <div className="flex items-center bg-white rounded-full shadow-sm">
-                    <motion.div className="relative flex items-center rounded-full">
-                        <button
-                            onClick={() => setActiveTab('hospital')}
-                            className="flex items-center gap-1 px-4 pr-2 py-2 z-10 h-12"
-                        >
-                            <motion.div 
-                                className={`flex items-center justify-center ${activeTab === 'hospital' ? 'bg-blue-500' : ''}`}
-                                initial={false}
-                                animate={{
-                                    padding: activeTab === 'hospital' ? 8 : 0,
-                                    borderRadius: activeTab === 'hospital' ? 9999 : 0
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            {/* Floating Toggle Buttons - only show on home page */}
+            {isHomePage && (
+                <div className="fixed bottom-6 right-6 lg:hidden z-30">
+                    <div className="flex items-center bg-white rounded-full shadow-sm">
+                        <motion.div className="relative flex items-center rounded-full">
+                            <button
+                                onClick={() => setActiveTab('hospital')}
+                                className="flex items-center gap-1 px-4 pr-2 py-2 z-10 h-12"
                             >
-                                <motion.img
-                                    src={activeTab === 'hospital' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
-                                    alt="Hospital"
-                                    className="w-5 h-5"
-                                    animate={{ scale: activeTab === 'hospital' ? 1.1 : 1 }}
+                                <motion.div 
+                                    className={`flex items-center justify-center ${activeTab === 'hospital' ? 'bg-blue-500' : ''}`}
+                                    initial={false}
+                                    animate={{
+                                        padding: activeTab === 'hospital' ? 8 : 0,
+                                        borderRadius: activeTab === 'hospital' ? 9999 : 0
+                                    }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            </motion.div>
-                            <motion.span 
-                                className="text-gray-600"
-                                initial={false}
-                                animate={{ 
-                                    opacity: activeTab !== 'hospital' ? 1 : 0,
-                                    width: activeTab !== 'hospital' ? 'auto' : 0
-                                }}
-                                transition={{ duration: 0.2 }}
+                                >
+                                    <motion.img
+                                        src={activeTab === 'hospital' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
+                                        alt="Hospital"
+                                        className="w-5 h-5"
+                                        animate={{ scale: activeTab === 'hospital' ? 1.1 : 1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                </motion.div>
+                                <motion.span 
+                                    className="text-gray-600"
+                                    initial={false}
+                                    animate={{ 
+                                        opacity: activeTab !== 'hospital' ? 1 : 0,
+                                        width: activeTab !== 'hospital' ? 'auto' : 0
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    Hospitals
+                                </motion.span>
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('lab')}
+                                className="flex items-center gap-1 px-4 pl-0 py-2 z-10 h-12"
                             >
-                                Hospitals
-                            </motion.span>
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('lab')}
-                            className="flex items-center gap-1 px-4 pl-0 py-2 z-10 h-12"
-                        >
-                            <motion.div 
-                                className={`flex items-center justify-center ${activeTab === 'lab' ? 'bg-blue-500' : ''}`}
-                                initial={false}
-                                animate={{
-                                    padding: activeTab === 'lab' ? 8 : 0,
-                                    borderRadius: activeTab === 'lab' ? 9999 : 0
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            >
-                                <motion.img
-                                    src={activeTab === 'lab' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
-                                    alt="Lab"
-                                    className="w-5 h-5"
-                                    animate={{ scale: activeTab === 'lab' ? 1.1 : 1 }}
+                                <motion.div 
+                                    className={`flex items-center justify-center ${activeTab === 'lab' ? 'bg-blue-500' : ''}`}
+                                    initial={false}
+                                    animate={{
+                                        padding: activeTab === 'lab' ? 8 : 0,
+                                        borderRadius: activeTab === 'lab' ? 9999 : 0
+                                    }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            </motion.div>
-                            <motion.span 
-                                className="text-gray-600"
-                                initial={false}
-                                animate={{ 
-                                    opacity: activeTab !== 'lab' ? 1 : 0,
-                                    width: activeTab !== 'lab' ? 'auto' : 0
-                                }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                Labs
-                            </motion.span>
-                        </button>
-                    </motion.div>
+                                >
+                                    <motion.img
+                                        src={activeTab === 'lab' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
+                                        alt="Lab"
+                                        className="w-5 h-5"
+                                        animate={{ scale: activeTab === 'lab' ? 1.1 : 1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                </motion.div>
+                                <motion.span 
+                                    className="text-gray-600"
+                                    initial={false}
+                                    animate={{ 
+                                        opacity: activeTab !== 'lab' ? 1 : 0,
+                                        width: activeTab !== 'lab' ? 'auto' : 0
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    Labs
+                                </motion.span>
+                            </button>
+                        </motion.div>
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Mobile Menu Slide-out */}
             {isMobileMenuOpen && (

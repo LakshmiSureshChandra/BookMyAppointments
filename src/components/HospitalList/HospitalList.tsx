@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 interface Hospital {
     id: string;
@@ -231,7 +232,7 @@ const HospitalList: FC = () => {
                                 )}
                             </div>
 
-                            <div className="mt-3 lg:mt-4 flex flex-wrap items-center gap-2 lg:gap-4 text-xs lg:text-sm">
+                            <div className="mt-3 lg:mt-4 pb-2 flex flex-wrap items-center gap-2 lg:gap-4 text-xs lg:text-sm">
                                 <div className="flex items-center gap-1">
                                     <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -255,9 +256,12 @@ const HospitalList: FC = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full mt-3 lg:mt-4 py-1.5 lg:py-2 bg-blue-500 text-white text-sm lg:text-base rounded-lg lg:rounded-xl hover:bg-blue-600 transition-colors">
-                                Explore
-                            </button>
+                            <Link 
+                                    to={`/hospital/${hospital.id}`}
+                                    className="inline-block w-full text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-xs lg:text-sm"
+                                >
+                                    Explore
+                                </Link>
                         </div>
                     ))}
                 </div>

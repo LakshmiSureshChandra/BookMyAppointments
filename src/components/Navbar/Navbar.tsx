@@ -1,10 +1,12 @@
 import type { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { motion } from 'framer-motion';
 
 const Navbar: FC = () => {
     const [activeTab, setActiveTab] = useState<'hospital' | 'lab'>('hospital')
+    const location = useLocation()
+    const isHomePage = location.pathname === '/'
 
     return (
         <nav className="hidden lg:block px-6 py-3 w-full"> {/* Changed md:block to lg:block */}
@@ -35,77 +37,79 @@ const Navbar: FC = () => {
                     </svg>
                 </div>
 
-                {/* Toggle buttons */}
-                <div className="flex items-center bg-white rounded-full shadow-sm mr-6">
-                    <motion.div className="relative flex items-center rounded-full">
-                        <button
-                            onClick={() => setActiveTab('hospital')}
-                            className="flex items-center gap-1 px-4 pr-2 py-2 z-10 h-12"
-                        >
-                            <motion.div 
-                                className={`flex items-center justify-center ${activeTab === 'hospital' ? 'bg-blue-500' : ''}`}
-                                initial={false}
-                                animate={{
-                                    padding: activeTab === 'hospital' ? 8 : 0,
-                                    borderRadius: activeTab === 'hospital' ? 9999 : 0
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                {/* Toggle buttons - only show on home page */}
+                {isHomePage && (
+                    <div className="flex items-center bg-white rounded-full shadow-sm mr-6">
+                        <motion.div className="relative flex items-center rounded-full">
+                            <button
+                                onClick={() => setActiveTab('hospital')}
+                                className="flex items-center gap-1 px-4 pr-2 py-2 z-10 h-12"
                             >
-                                <motion.img
-                                    src={activeTab === 'hospital' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
-                                    alt="Hospital"
-                                    className="w-5 h-5"
-                                    animate={{ scale: activeTab === 'hospital' ? 1.1 : 1 }}
+                                <motion.div 
+                                    className={`flex items-center justify-center ${activeTab === 'hospital' ? 'bg-blue-500' : ''}`}
+                                    initial={false}
+                                    animate={{
+                                        padding: activeTab === 'hospital' ? 8 : 0,
+                                        borderRadius: activeTab === 'hospital' ? 9999 : 0
+                                    }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            </motion.div>
-                            <motion.span 
-                                className="text-gray-600"
-                                initial={false}
-                                animate={{ 
-                                    opacity: activeTab !== 'hospital' ? 1 : 0,
-                                    width: activeTab !== 'hospital' ? 'auto' : 0
-                                }}
-                                transition={{ duration: 0.2 }}
+                                >
+                                    <motion.img
+                                        src={activeTab === 'hospital' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
+                                        alt="Hospital"
+                                        className="w-5 h-5"
+                                        animate={{ scale: activeTab === 'hospital' ? 1.1 : 1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                </motion.div>
+                                <motion.span 
+                                    className="text-gray-600"
+                                    initial={false}
+                                    animate={{ 
+                                        opacity: activeTab !== 'hospital' ? 1 : 0,
+                                        width: activeTab !== 'hospital' ? 'auto' : 0
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    Hospitals
+                                </motion.span>
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('lab')}
+                                className="flex items-center gap-1 px-4 pl-0 py-2 z-10 h-12"
                             >
-                                Hospitals
-                            </motion.span>
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('lab')}
-                            className="flex items-center gap-1 px-4 pl-0 py-2 z-10 h-12"
-                        >
-                            <motion.div 
-                                className={`flex items-center justify-center ${activeTab === 'lab' ? 'bg-blue-500' : ''}`}
-                                initial={false}
-                                animate={{
-                                    padding: activeTab === 'lab' ? 8 : 0,
-                                    borderRadius: activeTab === 'lab' ? 9999 : 0
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            >
-                                <motion.img
-                                    src={activeTab === 'lab' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
-                                    alt="Lab"
-                                    className="w-5 h-5"
-                                    animate={{ scale: activeTab === 'lab' ? 1.1 : 1 }}
+                                <motion.div 
+                                    className={`flex items-center justify-center ${activeTab === 'lab' ? 'bg-blue-500' : ''}`}
+                                    initial={false}
+                                    animate={{
+                                        padding: activeTab === 'lab' ? 8 : 0,
+                                        borderRadius: activeTab === 'lab' ? 9999 : 0
+                                    }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            </motion.div>
-                            <motion.span 
-                                className="text-gray-600"
-                                initial={false}
-                                animate={{ 
-                                    opacity: activeTab !== 'lab' ? 1 : 0,
-                                    width: activeTab !== 'lab' ? 'auto' : 0
-                                }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                Labs
-                            </motion.span>
-                        </button>
-                    </motion.div>
-                </div>
+                                >
+                                    <motion.img
+                                        src={activeTab === 'lab' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
+                                        alt="Lab"
+                                        className="w-5 h-5"
+                                        animate={{ scale: activeTab === 'lab' ? 1.1 : 1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                </motion.div>
+                                <motion.span 
+                                    className="text-gray-600"
+                                    initial={false}
+                                    animate={{ 
+                                        opacity: activeTab !== 'lab' ? 1 : 0,
+                                        width: activeTab !== 'lab' ? 'auto' : 0
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    Labs
+                                </motion.span>
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
 
                 {/* Navigation links */}
                 <div className="flex items-center space-x-6 ml-auto mr-6">
