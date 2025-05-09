@@ -72,12 +72,6 @@ const BookingsList: FC = () => {
         });
         setIsRescheduleModalOpen(true);
     };
-
-    const handleViewDetails = (booking: Booking) => {
-        setSelectedBooking(booking);
-        setIsDetailsModalOpen(true);
-    };
-
     const handleRescheduleSubmit = () => {
         // Here you would typically make an API call to update the booking
         console.log('Rescheduling booking:', selectedBooking?.id, rescheduleData);
@@ -281,12 +275,6 @@ const BookingsList: FC = () => {
                             <div className="mt-4 flex flex-col sm:flex-row justify-center sm:justify-end gap-3">
                                 {booking.status === 'upcoming' ? (
                                     <>
-                                        <button
-                                            onClick={() => handleViewDetails(booking)}
-                                            className="w-full sm:w-auto px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-200 rounded-lg hover:bg-gray-50"
-                                        >
-                                            View Details
-                                        </button>
                                         <button
                                             onClick={() => handleReschedule(booking)}
                                             className="w-full sm:w-auto px-4 py-2 text-sm text-blue-600 hover:text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50"
