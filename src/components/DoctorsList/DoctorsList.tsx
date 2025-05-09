@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface Doctor {
     id: string;
@@ -12,6 +13,7 @@ interface Doctor {
 }
 
 const DoctorsList: FC = () => {
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 15;
 
@@ -176,12 +178,17 @@ const DoctorsList: FC = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const displayedDoctors = doctors.slice(startIndex, startIndex + itemsPerPage);
 
+    const handleDoctorClick = (doctorId: string) => {
+        navigate(`/doctor/${doctorId}`);
+    };
+
     return (
         <div className="flex flex-col gap-6">
             <div className="grid grid-cols-1 gap-4 lg:gap-6 px-2 lg:px-6 w-full lg:grid-cols-3">
                 {displayedDoctors.map((doctor) => (
                     <div 
                         key={doctor.id}
+                        onClick={() => handleDoctorClick(doctor.id)}
                         className="bg-white rounded-xl lg:rounded-2xl p-4 lg:p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer"
                     >
                         <div className="flex gap-3 lg:gap-4 items-start">
