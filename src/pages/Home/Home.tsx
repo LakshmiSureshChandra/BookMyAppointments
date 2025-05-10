@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import { useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import MobileNavbar from '../../components/Navbar/MobileNavbar'
 import Banner from '../../components/Banner/Banner'
@@ -8,12 +7,11 @@ import HospitalList from '../../components/HospitalList/HospitalList'
 import Footer from '../../components/Footer/Footer'
 
 const Home: FC = () => {
-    const [activeTab, setActiveTab] = useState<'hospital' | 'lab'>('hospital')
 
     return (
         <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
             <div className="block lg:hidden sticky top-0 z-30 bg-white">
-                <MobileNavbar activeTab={activeTab} setActiveTab={setActiveTab} />
+                <MobileNavbar />
             </div>
             <div className="hidden lg:block">
                 <Navbar />

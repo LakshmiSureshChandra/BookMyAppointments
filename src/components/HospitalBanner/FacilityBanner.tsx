@@ -1,17 +1,20 @@
 import type { FC } from 'react'
 import { useState } from 'react'
+import { useService } from '../../context/ServiceContext'
 
-interface HospitalBannerProps {
+interface FacilityBannerProps {
     name: string;
     description: string;
     metrics: {
         rating: number;
         patientsCount: string;
         doctorsCount: string;
+        testsCount?: string;
     };
 }
 
-const HospitalBanner: FC<HospitalBannerProps> = ({ name, description, metrics }) => {
+const FacilityBanner: FC<FacilityBannerProps> = ({ name, description, metrics }) => {
+    const { serviceType } = useService()
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -22,8 +25,8 @@ const HospitalBanner: FC<HospitalBannerProps> = ({ name, description, metrics })
         }`}>
             <div className="absolute inset-0 mx-3 sm:mx-4 lg:mx-6">
                 <img 
-                    src="/banners/banner2.jpg" 
-                    alt="Hospital Banner" 
+                    src={serviceType === 'hospitals' ? '/banners/hospital-banner.jpg' : '/banners/lab-banner.jpg'}
+                    alt={`${serviceType === 'hospitals' ? 'Hospital' : 'Lab'} Banner`}
                     className="w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl"
                 />
                 <div className="absolute inset-0 bg-black/40 rounded-xl sm:rounded-2xl lg:rounded-3xl" />
@@ -57,16 +60,23 @@ const HospitalBanner: FC<HospitalBannerProps> = ({ name, description, metrics })
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-1.5 sm:p-3 lg:p-4 min-w-[70px] sm:min-w-[90px] lg:min-w-[100px]">
                         <div className="text-base sm:text-2xl lg:text-3xl font-semibold text-white">{metrics.patientsCount}</div>
-                        <div className="text-[9px] sm:text-xs lg:text-sm text-white/80">Patients treated</div>
+                        <div className="text-[9px] sm:text-xs lg:text-sm text-white/80">Patients served</div>
                     </div>
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-1.5 sm:p-3 lg:p-4 min-w-[70px] sm:min-w-[90px] lg:min-w-[100px]">
-                        <div className="text-base sm:text-2xl lg:text-3xl font-semibold text-white">{metrics.doctorsCount}</div>
-                        <div className="text-[9px] sm:text-xs lg:text-sm text-white/80">Doctors</div>
-                    </div>
+                    {serviceType === 'hospitals' ? (
+                        <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-1.5 sm:p-3 lg:p-4 min-w-[70px] sm:min-w-[90px] lg:min-w-[100px]">
+                            <div className="text-base sm:text-2xl lg:text-3xl font-semibold text-white">{metrics.doctorsCount}</div>
+                            <div className="text-[9px] sm:text-xs lg:text-sm text-white/80">Doctors</div>
+                        </div>
+                    ) : (
+                        <div className="bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-1.5 sm:p-3 lg:p-4 min-w-[70px] sm:min-w-[90px] lg:min-w-[100px]">
+                            <div className="text-base sm:text-2xl lg:text-3xl font-semibold text-white">{metrics.testsCount}</div>
+                            <div className="text-[9px] sm:text-xs lg:text-sm text-white/80">Tests Available</div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     )
 }
 
-export default HospitalBanner
+export default FacilityBanner

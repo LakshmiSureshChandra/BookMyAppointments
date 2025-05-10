@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import MobileNavbar from '../../components/Navbar/MobileNavbar'
@@ -9,7 +8,6 @@ import DoctorInfo from '../../components/DoctorDetails/DoctorInfo'
 
 const DoctorDetails: FC = () => {
     const { id } = useParams();
-    const [activeTab] = useState<'hospital' | 'lab'>('hospital');
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -18,8 +16,6 @@ const DoctorDetails: FC = () => {
             </div>
             <div className="block lg:hidden sticky top-0 z-30 bg-white">
                 <MobileNavbar 
-                    activeTab={activeTab}
-                    setActiveTab={() => {}} 
                 />
             </div>
             

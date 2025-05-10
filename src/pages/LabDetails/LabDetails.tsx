@@ -2,33 +2,33 @@ import type { FC } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import MobileNavbar from '../../components/Navbar/MobileNavbar'
 import Footer from '../../components/Footer/Footer'
-import HospitalBanner from '../../components/HospitalBanner/FacilityBanner'
+import FacilityBanner from '../../components/HospitalBanner/FacilityBanner'
 import Categories from '../../components/Categories/Categories'
-import DoctorsList from '../../components/DoctorsList/DoctorsList'
+import TestsList from '../../components/TestsList/TestsList'
 
-const HospitalDetails: FC = () => {
-
-    const hospitalData = {
-        name: 'Apollo Super Speciality Hospital',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+const LabDetails: FC = () => {
+    const labData = {
+        name: 'LifeCare Diagnostics',
+        description: 'Advanced diagnostic center equipped with state-of-the-art technology and experienced pathologists. We provide accurate and timely test results with a focus on quality and patient care.',
         metrics: {
-            rating: 4.6,
-            patientsCount: '1200+',
-            doctorsCount: '1200+'
+            rating: 4.8,
+            patientsCount: '5000+',
+            doctorsCount: '25+',
+            testsCount: '100+'
         }
     }
 
     return (
         <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
             <div className="block lg:hidden sticky top-0 z-30 bg-white">
-                <MobileNavbar/>
+                <MobileNavbar />
             </div>
             <div className="hidden lg:block">
                 <Navbar />
             </div>
             
             <main className="flex-1 w-full">
-                <HospitalBanner {...hospitalData} />
+                <FacilityBanner {...labData} />
 
                 <div className="">
                     <div className="">
@@ -36,7 +36,7 @@ const HospitalDetails: FC = () => {
                     </div>
 
                     <div className="">
-                        <DoctorsList />
+                        <TestsList />
                     </div>
                 </div>
             </main>
@@ -45,4 +45,4 @@ const HospitalDetails: FC = () => {
     )
 }
 
-export default HospitalDetails
+export default LabDetails

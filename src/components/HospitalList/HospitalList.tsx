@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { useService } from '../../context/ServiceContext'
 
-interface Hospital {
+interface Facility {
     id: string;
     name: string;
     logo: string;
@@ -14,10 +15,11 @@ interface Hospital {
 }
 
 const HospitalList: FC = () => {
+    const { serviceType } = useService()
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 15; // 5 rows × 3 columns
+    const itemsPerPage = 15;
 
-    const hospitals: Hospital[] = [
+    const hospitals: Facility[] = [
         {
             id: '1',
             name: 'Apollo Super Speciality Hospital',
@@ -201,33 +203,58 @@ const HospitalList: FC = () => {
         // ... add more hospitals
     ];
 
-    const totalPages = Math.ceil(hospitals.length / itemsPerPage);
+    const labs: Facility[] = [
+        {
+            id: '1',
+            name: 'LifeCare Diagnostics',
+            logo: '/logos/lifecare.png',
+            description: 'Advanced diagnostic center with state-of-the-art equipment.',
+            specialties: ['Blood Tests', 'Imaging', 'Pathology'],
+            distance: '2.8 Kms',
+            isTopRated: true,
+            departmentsCount: 5
+        },
+        {
+            id: '2',
+            name: 'MedLab Research Centre',
+            logo: '/logos/medlab.png',
+            description: 'Comprehensive laboratory services with quick results.',
+            specialties: ['Microbiology', 'Biochemistry', 'Molecular Testing'],
+            distance: '3.5 Kms',
+            isTopRated: true,
+            departmentsCount: 4
+        },
+        // Add more labs as needed
+    ];
+
+    const facilities = serviceType === 'hospitals' ? hospitals : labs;
+    const totalPages = Math.ceil(facilities.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const displayedHospitals = hospitals.slice(startIndex, startIndex + itemsPerPage);
+    const displayedFacilities = facilities.slice(startIndex, startIndex + itemsPerPage);
 
     return (
         <div className="w-full p-3 lg:p-6">
             <div className="flex flex-col items-center gap-4 lg:gap-6">
                 <div className="grid grid-cols-1 gap-4 lg:gap-6 w-full max-w-[400px] lg:max-w-none lg:grid-cols-3">
-                    {displayedHospitals.map((hospital) => (
-                        <div key={hospital.id} className="bg-white rounded-xl lg:rounded-2xl p-3 lg:p-4 shadow-sm border border-gray-100 w-full">
+                    {displayedFacilities.map((facility) => (
+                        <div key={facility.id} className="bg-white rounded-xl lg:rounded-2xl p-3 lg:p-4 shadow-sm border border-gray-100 w-full">
                             <div className="flex gap-2 lg:gap-3">
-                                <img src={hospital.logo} alt={hospital.name} className="w-14 h-14 lg:w-16 lg:h-16 object-contain" />
+                                <img src={facility.logo} alt={facility.name} className="w-14 h-14 lg:w-16 lg:h-16 object-contain" />
                                 <div className="flex-1">
-                                    <h3 className="font-semibold text-gray-800 text-sm lg:text-base line-clamp-1">{hospital.name}</h3>
-                                    <p className="text-gray-500 text-xs lg:text-sm line-clamp-2">{hospital.description}</p>
+                                    <h3 className="font-semibold text-gray-800 text-sm lg:text-base line-clamp-1">{facility.name}</h3>
+                                    <p className="text-gray-500 text-xs lg:text-sm line-clamp-2">{facility.description}</p>
                                 </div>
                             </div>
                             
                             <div className="mt-3 lg:mt-4 flex flex-wrap items-center gap-1 lg:gap-1.5">
-                                {hospital.specialties.slice(0, 3).map((specialty, index) => (
+                                {facility.specialties.slice(0, 3).map((specialty, index) => (
                                     <span key={index} className="px-1.5 lg:px-2 py-0.5 bg-gray-50 rounded-full text-xs text-gray-600 whitespace-nowrap">
                                         {specialty}
                                     </span>
                                 ))}
-                                {hospital.specialties.length > 3 && (
+                                {facility.specialties.length > 3 && (
                                     <span className="px-1.5 lg:px-2 py-0.5 bg-gray-50 rounded-full text-xs text-blue-600 whitespace-nowrap">
-                                        +{hospital.specialties.length - 3} more
+                                        +{facility.specialties.length - 3} more
                                     </span>
                                 )}
                             </div>
@@ -238,9 +265,9 @@ const HospitalList: FC = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {hospital.distance}
+                                    {facility.distance}
                                 </div>
-                                {hospital.isTopRated && (
+                                {facility.isTopRated && (
                                     <div className="flex items-center gap-1">
                                         <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -252,16 +279,16 @@ const HospitalList: FC = () => {
                                     <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
                                     </svg>
-                                    {hospital.departmentsCount}+ Departments
+                                    {facility.departmentsCount}+ {serviceType === 'hospitals' ? 'Departments' : 'Services'}
                                 </div>
                             </div>
 
                             <Link 
-                                    to={`/hospital/${hospital.id}`}
-                                    className="inline-block w-full text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-xs lg:text-sm"
-                                >
-                                    Explore
-                                </Link>
+                                to={`/${serviceType === 'hospitals' ? 'hospital' : 'lab'}/${facility.id}`}
+                                className="inline-block w-full text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-xs lg:text-sm"
+                            >
+                                Explore
+                            </Link>
                         </div>
                     ))}
                 </div>

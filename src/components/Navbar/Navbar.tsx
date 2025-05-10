@@ -1,10 +1,11 @@
 import type { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'
+import { useService } from '../../context/ServiceContext'
 
 const Navbar: FC = () => {
-    const [activeTab, setActiveTab] = useState<'hospital' | 'lab'>('hospital')
+    const { serviceType, toggleService } = useService()
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const location = useLocation()
     const isHomePage = location.pathname === '/'
@@ -43,23 +44,23 @@ const Navbar: FC = () => {
                     <div className="flex items-center bg-white rounded-full shadow-sm mr-6">
                         <motion.div className="relative flex items-center rounded-full">
                             <button
-                                onClick={() => setActiveTab('hospital')}
+                                onClick={toggleService}
                                 className="flex items-center gap-1 px-4 pr-2 py-2 z-10 h-12"
                             >
                                 <motion.div 
-                                    className={`flex items-center justify-center ${activeTab === 'hospital' ? 'bg-blue-500' : ''}`}
+                                    className={`flex items-center justify-center ${serviceType === 'hospitals' ? 'bg-blue-500' : ''}`}
                                     initial={false}
                                     animate={{
-                                        padding: activeTab === 'hospital' ? 8 : 0,
-                                        borderRadius: activeTab === 'hospital' ? 9999 : 0
+                                        padding: serviceType === 'hospitals' ? 8 : 0,
+                                        borderRadius: serviceType === 'hospitals' ? 9999 : 0
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 >
                                     <motion.img
-                                        src={activeTab === 'hospital' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
+                                        src={serviceType === 'hospitals' ? '/icons/hospital-white.png' : '/icons/hospital-gray.png'}
                                         alt="Hospital"
                                         className="w-5 h-5"
-                                        animate={{ scale: activeTab === 'hospital' ? 1.1 : 1 }}
+                                        animate={{ scale: serviceType === 'hospitals' ? 1.1 : 1 }}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                     />
                                 </motion.div>
@@ -67,8 +68,8 @@ const Navbar: FC = () => {
                                     className="text-gray-600"
                                     initial={false}
                                     animate={{ 
-                                        opacity: activeTab !== 'hospital' ? 1 : 0,
-                                        width: activeTab !== 'hospital' ? 'auto' : 0
+                                        opacity: serviceType !== 'hospitals' ? 1 : 0,
+                                        width: serviceType !== 'hospitals' ? 'auto' : 0
                                     }}
                                     transition={{ duration: 0.2 }}
                                 >
@@ -76,23 +77,23 @@ const Navbar: FC = () => {
                                 </motion.span>
                             </button>
                             <button
-                                onClick={() => setActiveTab('lab')}
+                                onClick={toggleService}
                                 className="flex items-center gap-1 px-4 pl-0 py-2 z-10 h-12"
                             >
                                 <motion.div 
-                                    className={`flex items-center justify-center ${activeTab === 'lab' ? 'bg-blue-500' : ''}`}
+                                    className={`flex items-center justify-center ${serviceType === 'labs' ? 'bg-blue-500' : ''}`}
                                     initial={false}
                                     animate={{
-                                        padding: activeTab === 'lab' ? 8 : 0,
-                                        borderRadius: activeTab === 'lab' ? 9999 : 0
+                                        padding: serviceType === 'labs' ? 8 : 0,
+                                        borderRadius: serviceType === 'labs' ? 9999 : 0
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 >
                                     <motion.img
-                                        src={activeTab === 'lab' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
+                                        src={serviceType === 'labs' ? '/icons/lab-white.png' : '/icons/lab-gray.png'}
                                         alt="Lab"
                                         className="w-5 h-5"
-                                        animate={{ scale: activeTab === 'lab' ? 1.1 : 1 }}
+                                        animate={{ scale: serviceType === 'labs' ? 1.1 : 1 }}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                     />
                                 </motion.div>
@@ -100,8 +101,8 @@ const Navbar: FC = () => {
                                     className="text-gray-600"
                                     initial={false}
                                     animate={{ 
-                                        opacity: activeTab !== 'lab' ? 1 : 0,
-                                        width: activeTab !== 'lab' ? 'auto' : 0
+                                        opacity: serviceType !== 'labs' ? 1 : 0,
+                                        width: serviceType !== 'labs' ? 'auto' : 0
                                     }}
                                     transition={{ duration: 0.2 }}
                                 >

@@ -1,16 +1,31 @@
 import { useState } from 'react'
 import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SuccessPopup from '../SuccessPopup/SuccessPopup'
 
 const BookingForm: FC = () => {
     const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [selectedTime, setSelectedTime] = useState<string>('');
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
     const timeSlots = [
-        '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', 
-        '12:00 PM', '12:30 PM', '1:00 PM'
+        '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', 
+        '12:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
     ];
+
+    const handleBooking = () => {
+        if (!selectedDate || !selectedTime) {
+            alert('Please select both date and time');
+            return;
+        }
+
+        setShowSuccessPopup(true);
+        setTimeout(() => {
+            setShowSuccessPopup(false);
+            navigate('/bookings');
+        }, 2000);
+    };
 
     return (
         <div className="w-[97%] mx-auto mt-6">
@@ -115,22 +130,23 @@ const BookingForm: FC = () => {
                         </div>
 
                         <button
-                            onClick={() => navigate('/booking-success')}
+                            onClick={handleBooking}
                             disabled={!selectedDate || !selectedTime}
-                            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                            className={`w-full bg-blue-500 text-white rounded-lg py-3 transition-colors ${
+                                (!selectedDate || !selectedTime) 
+                                    ? 'opacity-50 cursor-not-allowed' 
+                                    : 'hover:bg-blue-600'
+                            }`}
                         >
-                            Confirm & Pay
+                            Confirm Booking
                         </button>
-
-                        <div className="text-center">
-                            <p className="text-sm text-gray-500">By booking this appointment you agree to our</p>
-                            <button className="text-sm text-blue-600 hover:underline">Terms & Conditions</button>
-                        </div>
                     </div>
                 </div>
             </div>
+
+            <SuccessPopup isVisible={showSuccessPopup} />
         </div>
-    );
+    )
 }
 
 export default BookingForm

@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { useService } from '../../context/ServiceContext'
 
 type PreventScrollHandlers = {
     preventScroll: (e: Event) => void;
@@ -21,6 +22,7 @@ interface Category {
 }
 
 const Categories: FC = () => {
+    const { serviceType } = useService()
     const [selectedCategory, setSelectedCategory] = useState<string>('cardiology');
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,17 +43,17 @@ const Categories: FC = () => {
             el.removeEventListener('wheel', onWheel);
         };
     }, []);
-    const categories: Category[] = [
+    const hospitalCategories: Category[] = [
         {
             id: 'cardiology',
             name: 'Cardiology',
-            icon: '/icons/cat.png',
+            icon: '/icons/specialties/cardiology.png',
             description: 'Heart & Cardiovascular Care'
         },
         {
             id: 'orthopedics',
             name: 'Orthopedics',
-            icon: '/icons/cat.png',
+            icon: '/icons/specialties/orthopedics.png',
             description: 'Bone & Joint Care'
         },
         {
@@ -91,7 +93,46 @@ const Categories: FC = () => {
             description: 'Urinary & Reproductive Health'
         }
     ]
+    const labCategories: Category[] = [
+        {
+            id: 'blood-test',
+            name: 'Blood Tests',
+            icon: '/icons/labs/blood-test.png',
+            description: 'Complete Blood Analysis'
+        },
+        {
+            id: 'imaging',
+            name: 'Imaging',
+            icon: '/icons/labs/imaging.png',
+            description: 'X-Ray, CT Scan, MRI'
+        },
+        {
+            id: 'pathology',
+            name: 'Pathology',
+            icon: '/icons/labs/pathology.png',
+            description: 'Tissue & Sample Analysis'
+        },
+        {
+            id: 'microbiology',
+            name: 'Microbiology',
+            icon: '/icons/labs/microbiology.png',
+            description: 'Bacterial & Viral Tests'
+        },
+        {
+            id: 'biochemistry',
+            name: 'Biochemistry',
+            icon: '/icons/labs/biochemistry.png',
+            description: 'Chemical Analysis'
+        },
+        {
+            id: 'hormone',
+            name: 'Hormone Tests',
+            icon: '/icons/labs/hormone.png',
+            description: 'Endocrine Analysis'
+        }
+    ];
 
+    const categories = serviceType === 'hospitals' ? hospitalCategories : labCategories;
 
     return (
         <div className="w-full py-1.5 px-2 lg:py-3 lg:px-6">
@@ -129,7 +170,7 @@ const Categories: FC = () => {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default Categories
